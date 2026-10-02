@@ -1,0 +1,36 @@
+# Genera una Application por cada carpeta en rings/*
+# Agregar un cliente nuevo = crear una carpeta. Nada más.
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: hola-anillos
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - git:
+        repoURL: https://github.com/vicoscanseco/argocd-deployanillos.git
+        revision: main
+        directories:
+          - path: rings/*
+  template:
+    metadata:
+      name: 'hola-{{.path.basename}}'
+      labels:
+        demo: anillos
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/vicoscanseco/argocd-deployanillos.git
+        targetRevision: main
+        path: '{{.path.path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{.path.basename}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hola GitOps v1</title>
+  <style>
+    body { font-family: sans-serif; background: #070d1a; color: #f5ecd7; display: grid; place-items: center; height: 100vh; margin: 0; text-align: center; }
+    .card { border: 2px solid #4da3ff; padding: 40px 60px; }
+    .cliente { font-size: 1.6rem; margin: 0; }
+    .anillo { color: #b89a5a; letter-spacing: 2px; text-transform: uppercase; font-size: .85rem; }
+    .v { font-size: 5rem; font-weight: bold; color: #4da3ff; margin: .2em 0; }
+    .nuevo { opacity: .85; }
+    small { opacity: .55; display: block; margin-top: 24px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <p class="anillo" id="anillo">…</p>
+    <p class="cliente" id="cliente">Cargando cliente…</p>
+    <p class="v">v1</p>
+    <p class="nuevo">Versión estable</p>
+    <small>Desplegado por ArgoCD · VC.DevAI</small>
+  </div>
+  <script>
+    fetch('cliente.json').then(r => r.json()).then(d => {
+      document.getElementById('cliente').textContent = d.cliente;
+      document.getElementById('anillo').textContent = d.anillo;
+      document.title = d.cliente + ' · v1';
+    });
+  </script>
+</body>
+</html>

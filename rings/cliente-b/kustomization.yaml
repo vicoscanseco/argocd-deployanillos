@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: cliente-b
+
+# ===== VERSIÓN DE ESTE CLIENTE =====
+# Para promover: cambia la release (v1 -> v2), commit y push.
+resources:
+  - ../../release/v1
+
+configMapGenerator:
+  - name: cliente-info
+    files:
+      - cliente.json
