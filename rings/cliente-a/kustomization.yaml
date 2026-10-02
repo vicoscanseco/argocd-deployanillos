@@ -5,8 +5,7 @@ namespace: cliente-a
 # ===== VERSIÓN DE ESTE CLIENTE =====
 # Para promover: cambia la release (v1 -> v2), commit y push.
 resources:
-  - ../../release/v2
-
+  - ../../release/v1
 configMapGenerator:
   - name: cliente-info
     files:
